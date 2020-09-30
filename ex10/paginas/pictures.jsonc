@@ -1,0 +1,7 @@
+[
+    {"pictures":{"caption":"Picture 1","source":"../fotos/picture1.jpg"}},
+    {"pictures":{"caption":"Picture 2","source":"../fotos/picture2.jpg"}},
+    {"pictures":{"caption":"Picture 3","source":"../fotos/picture3.jpg"}},
+    {"pictures":{"caption":"Picture 4","source":"../fotos/picture4.jpg"}},
+    {"pictures":{"caption":"Picture 5","source":"../fotos/picture5.jpg"}}
+]   
