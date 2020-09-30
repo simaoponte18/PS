@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html"; charset="utf-8"/>
+</head>
+
+<body>
+<center>
+<h1>Gallery 1</h1>
+    <div id="container">
+        <p>
+            <img src="/fotos/picture1.jpg" alt="Picture1" height="250" width="250"/>
+        </p>
+        <p class="caption">
+            Picture 1
+        </p>
+    </div>
+    <p id="menu">
+        <a href="picture1.html">Picture1</a>|
+        <a href="picture2.html">Picture2</a>|
+        <a href="picture3.html">Picture3</a>|
+        <a href="picture4.html">Picture4</a>|
+        <a href="picture5.html">Picture5</a>
+    </p>
+    <p id="error">
+        An error has occured Please try again later!
+    </p>
+
+    <div id="comments">
+        <form method="POST" action="comment.hmtl">
+            <h2>New comment</h2>
+            <p>
+                <label for="username">Username</label><br />
+                <input type="text" name="username" id="username" />
+            </p>
+            <p>
+                <label for="text">Comment</label><br />
+                <textarea id="text" name="text"></textarea>
+            </p>
+            <p>
+                <input type="submit" value="Submit" />
+            </p>
+        </form>
+        <div class="comment">
+            <p calss="comment_title">Comment 1 - By Miguel Antonio</p>
+            <p>Great Image</p>
+        </div>
+        <div class="comment">
+            <p class="comment_title">Comment 2 - By Diogo Almeida</p>
+            <p>I agree.</p>
+        </div>
+    </div>
+    
+    <p id="loading">
+        Processing Comment...<br />
+    </p>
+
+<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>
+<script type="text/javascript" charset="utf-8">
+    var pictures, $menu_links=$("menu a"),$title=$("title"),$image=$("#container img"),$caption=$(".caption");
+    $error=$("#error"),$form=$("form"),$loading=$("#loading"),$comments=$("#comments");
+
+    $.ajaxSetup({
+        error:function(){
+            $error.show();
+        }
+    })
+    $form.submit(function(){
+        $form.hide();
+        $.ajax({
+            type: "POST",
+            url:$form.attr("action"),
+            date:$form.serialize(),
+            beforeSend: function(){
+                $loading.show();
+            },
+            complete: function(){
+                $loading.hide();
+            },
+            success:function(data){
+                $comments.append(data);
+            }
+
+        })
+        return false
+    })
+    $.get("pictures.json",function(data){
+            pictures= data;
+        })
+    $menu_links-click(function(){
+        var index=$menu_links.index(this);
+        var picture=pictures[index].picture;
+        $caption-text(pictures.caption);
+        $image.attr("src",$picture.source);
+        $title.text("Galery 1 - " +pictures.caption);
+        return false
+    })
+</script>
+</center>
+</body>
+</html>
